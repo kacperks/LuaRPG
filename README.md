@@ -7,7 +7,9 @@ To bulid you need
 * SFML
 You can install SFML on linux using
 
-    sudo apt install libsfml-dev
+
+        sudo apt install libsfml-dev
+
 
 * GNU GCC Compiler
 or other C++ compiler
