@@ -25,7 +25,8 @@ int main(){
     }
     sf::Sprite Player;
     Player.setTexture(texture);
-
+    Player.setPosition(sf::Vector2f(10.f, 50.f));
+    Player.setScale(sf::Vector2f(0.5f, 2.f));
     while (window.isOpen())
     {
         sf::Event event;
@@ -56,14 +57,8 @@ int main(){
                 cout << errormsg << endl;
             }
             lua_close(S);
-        //TODO
-        //-Player Movement with player.lua functions
-        //-Shooting
-        //-Defenders
-        //LevelGeneration
-        Player.setPosition(sf::Vector2f(10.f, 50.f));
+
         Player.move(sf::Vector2f(x, y));
-        sprite.setScale(sf::Vector2f(0.5f, 2.f));
 
         while (window.pollEvent(event))
         {
