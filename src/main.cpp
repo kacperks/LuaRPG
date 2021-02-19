@@ -16,6 +16,45 @@ extern "C"
 float x; //Player X
 float y; //Player Y
 
+void Move(string diraction){
+    if(diraction == "L"){
+            lua_State *L = luaL_newstate();
+            luaL_openlibs(L);
+            int r = luaL_dofile(L,"LuaFiles/player.lua");
+            if(r == LUA_OK){
+                luaL_getglobal(L, "MoveLeft");
+                if(lua_isfunction(L, -1)){
+                    if(lua_pcall(L,0,0,0)){
+                        
+                    }
+                }
+            }
+            else{
+                string errormsg = lua_tostring(L, -1);
+                cout << errormsg << endl;
+            }
+            lua_close(L);
+    }
+    if(diraction == "R"){
+                    lua_State *L = luaL_newstate();
+            luaL_openlibs(L);
+            int r = luaL_dofile(L,"LuaFiles/player.lua");
+            if(r == LUA_OK){
+                luaL_getglobal(L, "MoveRight");
+                if(lua_isfunction(L, -1)){
+                    if(lua_pcall(L,0,0,0)){
+                        
+                    }
+                }
+            }
+            else{
+                string errormsg = lua_tostring(L, -1);
+                cout << errormsg << endl;
+            }
+            lua_close(L);
+    }
+}
+
 int main(){
     sf::RenderWindow window(sf::VideoMode(800, 600), "Lua RPG !");
     sf::Texture texture;
@@ -32,21 +71,14 @@ int main(){
         sf::Event event;
 
             lua_State *L = luaL_newstate();
+            luaL_openlibs(L);
             int r = luaL_dofile(L,"LuaFiles/player.lua");
+            int t = luaL_dofile(L,"LuaFiles/player.lua");
             if(r == LUA_OK){
                 lua_getglobal(L, "x");
                 if (lua_isnumber(L, -1)){
                     x = (float)lua_tonumber(L, -1);
                 }
-            }
-            else{
-                string errormsg = lua_tostring(L, -1);
-                cout << errormsg << endl;
-            }
-            lua_close(L);
-            lua_State *S = luaL_newstate();
-            int t = luaL_dofile(S,"LuaFiles/player.lua");
-            if(t == LUA_OK){
                 lua_getglobal(L, "y");
                 if (lua_isnumber(L, -1)){
                     y = (float)lua_tonumber(L, -1);
@@ -56,8 +88,15 @@ int main(){
                 string errormsg = lua_tostring(L, -1);
                 cout << errormsg << endl;
             }
-            lua_close(S);
-
+            lua_close(L);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
+            Move("L");
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+            Move("R");
+        }
         Player.move(sf::Vector2f(x, y));
 
         while (window.pollEvent(event))
