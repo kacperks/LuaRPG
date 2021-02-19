@@ -1,5 +1,8 @@
 # LuaRPG
  RPG written in C++ and Lua
+ 
+ experiment with Lua in C ++
+ 
  * This Project is not finished!
 # Bulid
 
